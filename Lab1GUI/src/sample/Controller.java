@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import sample.Initialization;
+import sample.FirstAddSecond;
 
 public class Controller {
 
@@ -35,7 +35,7 @@ public class Controller {
 
     @FXML
     void initialize() {
-        Initialization initialization = new Initialization();
+        FirstAddSecond firstAddSecond = new FirstAddSecond();
 
         copyFrom1To2Button.setOnAction(event -> {
             String text1= firstField.getText();
@@ -49,7 +49,7 @@ public class Controller {
         firstAddSecondButton.setOnAction(Event -> {
                 String text1= firstField.getText();
                 String text2= secondField.getText();
-                String text3= initialization.firstAddSecond(text1,text2);
+                String text3= firstAddSecond.firstAddSecond(text1,text2);
                 thirdField.setText(text3);
         });
     }
