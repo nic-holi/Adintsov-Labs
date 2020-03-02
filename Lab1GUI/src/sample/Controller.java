@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import sample.Initialization;
 
 public class Controller {
 
@@ -30,14 +31,28 @@ public class Controller {
     private TextField thirdField;
 
     @FXML
-    void initialize() {
-        copyFrom1To2Button.setOnAction(event -> {
-            secondField.setText(firstField.getText());
+    private Button firstAddSecondButton;
 
+    @FXML
+    void initialize() {
+        Initialization initialization = new Initialization();
+
+        copyFrom1To2Button.setOnAction(event -> {
+            String text1= firstField.getText();
+            secondField.setText(text1);
         });
         copyFrom2To3Button.setOnAction(Event -> {
-            thirdField.setText(secondField.getText());
-        } );
+            String text2= secondField.getText();
+            thirdField.setText(text2);
+        });
 
+        firstAddSecondButton.setOnAction(Event -> {
+                String text1= firstField.getText();
+                String text2= secondField.getText();
+                String text3= initialization.firstAddSecond(text1,text2);
+                thirdField.setText(text3);
+        });
     }
 }
+
+
