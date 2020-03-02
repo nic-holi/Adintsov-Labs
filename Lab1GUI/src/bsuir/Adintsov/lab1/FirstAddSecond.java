@@ -1,4 +1,4 @@
-package sample;
+package bsuir.Adintsov.lab1;
 
 
 public class FirstAddSecond {
