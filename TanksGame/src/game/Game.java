@@ -6,9 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
-import java.util.ArrayList;
 
 enum Status {
     Wait, Play;

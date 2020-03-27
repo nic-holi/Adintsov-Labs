@@ -5,7 +5,7 @@ import javafx.scene.Scene;
 public abstract class GameScene {
     protected TanksUI uiManager;
     protected final int SIZE;
-    protected Game myGame;
+    protected Game tanks;
 
     public GameScene(TanksUI manager, int SIZE) {
         uiManager = manager;
@@ -14,7 +14,7 @@ public abstract class GameScene {
 
     public GameScene(TanksUI manager, int SIZE, Game game) {
         this(manager, SIZE);
-        myGame = game;
+        tanks = game;
     }
 
 

@@ -1,18 +1,17 @@
 package game;
 
 import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+
 import javafx.application.Application;
 import javafx.event.*;
 import javafx.scene.*;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+
 
 public class Main extends Application {
     private static final int SIZE = 500;
     private static final int FPS = 60;
-    private static final int MS_DELAY = 1000 / FPS;
-    private static final double S_DELAY = 1.0 / FPS;
+
 
     private Game tanks;
     private Stage stage;
