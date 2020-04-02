@@ -1,5 +1,6 @@
-package game;
+package game.scene;
 
+import game.UI.TanksUI;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;

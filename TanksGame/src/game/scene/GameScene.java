@@ -1,5 +1,7 @@
-package game;
+package game.scene;
 
+import game.UI.Game;
+import game.UI.TanksUI;
 import javafx.scene.Scene;
 
 public abstract class GameScene {

@@ -1,5 +1,8 @@
-package game;
+package game.main;
 
+import game.UI.Game;
+import game.UI.TanksUI;
+import game.scene.StartScene;
 import javafx.animation.KeyFrame;
 
 import javafx.application.Application;
