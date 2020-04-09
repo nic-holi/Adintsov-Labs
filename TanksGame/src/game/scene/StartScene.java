@@ -12,9 +12,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+
 //import java.awt.*;
 
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
+
+import java.io.File;
 
 
 public class StartScene extends GameScene {
@@ -60,9 +64,10 @@ public class StartScene extends GameScene {
         root.setTop(title);
         root.setCenter(startViewButtons);
         BorderPane.setAlignment(title, Pos.CENTER);
-        Scene scn = new Scene(root, getSIZE(), getSIZE());
+        Scene scene = new Scene(root, getSIZE(), getSIZE());
+        File f = new File("src/game/scene/style.css");
+        scene.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 
-       // scn.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
-        return scn;
+        return scene;
     }
 }
