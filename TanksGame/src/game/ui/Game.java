@@ -1,4 +1,4 @@
-package game.UI;
+package game.ui;
 
 import game.sprite.PlayerTank;
 import javafx.scene.Scene;
@@ -11,30 +11,79 @@ import javafx.scene.paint.Color;
 
 public class Game {
     private static final String TITLE = "Tank Battle";
-    private Status status = Status.Wait;
+    private Status status = Status.WAIT;
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     private Scene myScene;
+
+    public Scene getMyScene() {
+        return myScene;
+    }
+
+    public void setMyScene(Scene myScene) {
+        this.myScene = myScene;
+    }
+
     private GraphicsContext gc;
+
+    public GraphicsContext getGc() {
+        return gc;
+    }
+
+    public void setGc(GraphicsContext gc) {
+        this.gc = gc;
+    }
+
     private PlayerTank playerTank;
+
+    public PlayerTank getPlayerTank() {
+        return playerTank;
+    }
+
+    public void setPlayerTank(PlayerTank playerTank) {
+        this.playerTank = playerTank;
+    }
+
     private int width, height;
 
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
 
     public String getTitle() {
         return TITLE;
     }
 
     public Scene init(int width, int height) {
-        status = Status.Play;
-        this.width = width;
-        this.height = height;
+        setStatus(Status.PLAY);
+        this.setWidth(width) ;
+        this.setHeight(height);
 
 
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: black;");
 
 
-        gc = initGraphicsContext(root);
+        setGc(initGraphicsContext(root)) ;
 
         myScene = new Scene(root, width, height, Color.BLACK);
         // Respond to input

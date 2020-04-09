@@ -1,6 +1,6 @@
 package game.scene;
 
-import game.UI.TanksUI;
+import game.ui.TanksUI;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -29,7 +29,7 @@ public class StartScene extends GameScene {
         buttons.setPadding(new Insets(15, 12, 15, 12));
         buttons.setSpacing(100);
 
-        Button startButton = uiManager.initStartButton();
+        Button startButton = getUiManager().initStartButton();
 
         Text text = new Text();
         text.setFont(new Font(16));
@@ -60,9 +60,9 @@ public class StartScene extends GameScene {
         root.setTop(title);
         root.setCenter(startViewButtons);
         BorderPane.setAlignment(title, Pos.CENTER);
-        Scene scn = new Scene(root, SIZE, SIZE);
+        Scene scn = new Scene(root, getSIZE(), getSIZE());
 
-        scn.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
+       // scn.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
         return scn;
     }
 }
