@@ -1,12 +1,16 @@
 package game.ui;
 
+import game.sprite.Direction;
 import game.sprite.PlayerTank;
+import game.sprite.Sprite;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
 
 
 public class Game {
@@ -20,7 +24,7 @@ public class Game {
     public void setStatus(Status status) {
         this.status = status;
     }
-
+    private ArrayList<Sprite> elements = new ArrayList<Sprite>();
     private Scene myScene;
 
     public Scene getMyScene() {
@@ -73,6 +77,12 @@ public class Game {
         return TITLE;
     }
 
+    private void renderElements() {
+        elements.sort(null);
+        for (Sprite e: elements) {
+            e.render(gc);
+        }
+    }
     public Scene init(int width, int height) {
         setStatus(Status.PLAY);
         this.setWidth(width) ;
@@ -96,23 +106,23 @@ public class Game {
 
         switch (code) {
             case SPACE:
-                //playerTank.fire();
+                playerTank.fireMissile();
                 break;
             case RIGHT:
 
-                // playerTank.setDirection(Direction.RIGHT);
+                 playerTank.setDirection(Direction.RIGHT);
                 break;
             case LEFT:
 
-                //playerTank.setDirection(Direction.LEFT);
+                playerTank.setDirection(Direction.LEFT);
                 break;
             case UP:
 
-                // playerTank.setDirection(Direction.UP);
+                 playerTank.setDirection(Direction.UP);
                 break;
             case DOWN:
 
-                // playerTank.setDirection(Direction.DOWN);
+                 playerTank.setDirection(Direction.DOWN);
                 break;
             default:
                 break;
@@ -126,6 +136,9 @@ public class Game {
         root.setCenter(canvas);
         return canvas.getGraphicsContext2D();
     }
+
+    public static final int PLAYER_TANK_MASK = 1;
+    public static final int PLAYER_MISSILE_MASK = 6;
 
 }
 
