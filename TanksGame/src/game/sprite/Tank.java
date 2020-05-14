@@ -1,93 +1,53 @@
 package game.sprite;
 import java.util.ArrayList;
 
-import game.ui.Game;
+import game.main.Game;
+import game.stable.Grass;
 
 
 public abstract class Tank extends Sprite {
 
     private static final long MISSILE_DELAY = 500000000;
 
-    public static long getMissileDelay() {
-        return MISSILE_DELAY;
-    }
-
-    private int SPEED = 550;
-
-    public void setSPEED(int SPEED) {
-        this.SPEED = SPEED;
-    }
-
-    public int getSPEED() {
-        return SPEED;
-    }
-
+    public static int SPEED = 550;
     private String TANK_UP;
-
-    public void setTANK_UP(String TANK_UP) {
-        this.TANK_UP = TANK_UP;
-    }
-
-    public String getTANK_UP() {
-        return TANK_UP;
-    }
-
     private String TANK_DOWN;
-
-    public void setTANK_DOWN(String TANK_DOWN) {
-        this.TANK_DOWN = TANK_DOWN;
-    }
-
-    public String getTANK_DOWN() {
-        return TANK_DOWN;
-    }
-
     private String TANK_LEFT;
-
-    public void setTANK_LEFT(String TANK_LEFT) {
-        this.TANK_LEFT = TANK_LEFT;
-    }
-
-    public String getTANK_LEFT() {
-        return TANK_LEFT;
-    }
-
     private String TANK_RIGHT;
 
-    public void setTANK_RIGHT(String TANK_RIGHT) {
-        this.TANK_RIGHT = TANK_RIGHT;
-    }
-
-    public String getTANK_RIGHT() {
-        return TANK_RIGHT;
-    }
-
     private Direction direction = Direction.UP;
-
-    private Direction missileDirection = getDirection();
-
-    public Direction getMissileDirection() {
-        return missileDirection;
-    }
-
-    public void setMissileDirection(Direction missileDirection) {
-        this.missileDirection = missileDirection;
-    }
-
+    public Direction missileDirection = getDirection();
     private long fireTime = System.nanoTime();
 
     private ArrayList<Sprite> elements;
 
+    public void setTANK_UP(String TANK_UP) { this.TANK_UP = TANK_UP; }
+
+    public void setTANK_DOWN(String TANK_DOWN) { this.TANK_DOWN = TANK_DOWN; }
+
+    public void setTANK_LEFT(String TANK_LEFT) { this.TANK_LEFT = TANK_LEFT; }
+
+    public void setTANK_RIGHT(String TANK_RIGHT) { this.TANK_RIGHT = TANK_RIGHT; }
+
+    public String getTANK_UP() { return TANK_UP;   }
+
+    public String getTANK_DOWN() { return TANK_DOWN;    }
+
+    public String getTANK_LEFT() { return TANK_LEFT;    }
+
+    public String getTANK_RIGHT() { return TANK_RIGHT;    }
+
+
     public Tank(ArrayList<Sprite> elements) {
         this.elements = elements;
-        setWhite();
+        setYellow();
         setImage(TANK_UP);
-
+        setBITMASK(Game.ENEMY_TANK_MASK); //default, enemy tanks
     }
 
     public Tank(ArrayList<Sprite> elements, int mask) {
         this(elements);
-        setBITMASK(mask) ;
+        setBITMASK(mask);
     }
 
     public void update(double time) {
@@ -103,20 +63,20 @@ public abstract class Tank extends Sprite {
     private void setSpeedWithDirection() {
         switch (getDirection()) {
             case RIGHT:
-                setVelocityX(getSPEED());
+                setVelocityX(SPEED);
                 setVelocityY(0);
                 break;
             case LEFT:
-                setVelocityX(-getSPEED());
+                setVelocityX(-SPEED);
                 setVelocityY(0);
                 break;
             case UP:
                 setVelocityX(0);
-                setVelocityY(-getSPEED());
+                setVelocityY(-SPEED);
                 break;
             case DOWN:
                 setVelocityX(0);
-                setVelocityY(getSPEED());
+                setVelocityY(SPEED);
                 break;
             default:
                 setVelocityX(0);
@@ -170,16 +130,42 @@ public abstract class Tank extends Sprite {
         return missile;
     }
 
+    public void handleCollision(Sprite s) {
+        if (getBITMASK() == s.getBITMASK()) {
+            lastPosition();
+        }
+        else if (s.getBITMASK() == Game.STABLE_MASK
+                && !(s instanceof Grass)) {
+            lastPosition();
+        }
+        super.handleCollision(s);
+    }
 
 
     public abstract int getMissileMask();
 
 
-    public void setWhite() {
-        TANK_UP = WHITE_TANK_UP;
-        TANK_DOWN = WHITE_TANK_DOWN;
-        TANK_LEFT = WHITE_TANK_LEFT;
-        TANK_RIGHT = WHITE_TANK_RIGHT;
+    public void setGreen() {
+        setTANK_UP(GREEN_TANK_UP);
+        setTANK_DOWN(GREEN_TANK_DOWN);
+        setTANK_LEFT(GREEN_TANK_LEFT) ;
+        setTANK_RIGHT(GREEN_TANK_RIGHT);
+    }
+
+
+    public void setRed() {
+        setTANK_UP(RED_TANK_UP);
+        setTANK_DOWN(RED_TANK_DOWN);
+        setTANK_LEFT(RED_TANK_LEFT) ;
+        setTANK_RIGHT(RED_TANK_RIGHT);
+    }
+
+
+    public void setYellow() {
+        setTANK_UP(YELLOW_TANK_UP);
+        setTANK_DOWN(YELLOW_TANK_DOWN);
+        setTANK_LEFT(YELLOW_TANK_LEFT) ;
+        setTANK_RIGHT(YELLOW_TANK_RIGHT);
     }
 
 
@@ -188,21 +174,17 @@ public abstract class Tank extends Sprite {
     }
 
     //constants
-    private static final String WHITE_TANK_UP = "/graphic/white-tank-up.gif";
-    private static final String WHITE_TANK_DOWN = "/graphic/white-tank-down.gif";
-    private static final String WHITE_TANK_LEFT = "/graphic/white-tank-left.gif";
-    private static final String WHITE_TANK_RIGHT = "/graphic/white-tank-right.gif";
-    private static final String GREEN_TANK_UP = "/graphic/green-tank-up.gif";
-    private static final String GREEN_TANK_DOWN = "/graphic/green-tank-down.gif";
-    private static final String GREEN_TANK_LEFT = "/graphic/green-tank-left.gif";
-    private static final String GREEN_TANK_RIGHT = "/graphic/green-tank-right.gif";
-    private static final String RED_TANK_UP = "/graphic/red-tank-up.gif";
-    private static final String RED_TANK_DOWN = "/graphic/red-tank-down.gif";
-    private static final String RED_TANK_LEFT = "/graphic/red-tank-left.gif";
-    private static final String RED_TANK_RIGHT = "/graphic/red-tank-right.gif";
-    private static final String YELLOW_TANK_UP = "/graphic/yellow-tank-up.gif";
-    private static final String YELLOW_TANK_DOWN = "/graphic/yellow-tank-down.gif";
-    private static final String YELLOW_TANK_LEFT = "/graphic/yellow-tank-left.gif";
-    private static final String YELLOW_TANK_RIGHT = "/graphic/yellow-tank-right.gif";
 
+    public static final String GREEN_TANK_UP = "green-tank-up.gif";
+    public static final String GREEN_TANK_DOWN = "green-tank-down.gif";
+    public static final String GREEN_TANK_LEFT = "green-tank-left.gif";
+    public static final String GREEN_TANK_RIGHT = "green-tank-right.gif";
+    public static final String RED_TANK_UP = "red-tank-up.gif";
+    public static final String RED_TANK_DOWN = "red-tank-down.gif";
+    public static final String RED_TANK_LEFT = "red-tank-left.gif";
+    public static final String RED_TANK_RIGHT = "red-tank-right.gif";
+    public static final String YELLOW_TANK_UP = "yellow-tank-up.gif";
+    public static final String YELLOW_TANK_DOWN = "yellow-tank-down.gif";
+    public static final String YELLOW_TANK_LEFT = "yellow-tank-left.gif";
+    public static final String YELLOW_TANK_RIGHT = "yellow-tank-right.gif";
 }

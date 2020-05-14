@@ -1,12 +1,13 @@
 package game.ui;
 
+import game.main.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 public class TanksUI {
     private EventHandler<ActionEvent> gameStart;
-
+    private EventHandler<ActionEvent> gameExit;
     public EventHandler<ActionEvent> getGameStart() {
         return gameStart;
     }
@@ -29,6 +30,14 @@ public class TanksUI {
         startButton.setOnAction(getGameStart());
         return startButton;
     }
+
+    public Button initExitButton() {
+        Button exitButton = new Button("Exit");
+        exitButton.setPrefWidth(120);
+        exitButton.setOnAction(gameExit);
+        return exitButton;
+    }
+
     public void refreshGame() {
         didInputName = false;
     }

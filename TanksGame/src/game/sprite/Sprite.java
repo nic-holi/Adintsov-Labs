@@ -1,5 +1,7 @@
 package game.sprite;
 
+import game.stable.Grass;
+import game.stable.Water;
 import javafx.scene.image.Image;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -10,12 +12,21 @@ import java.util.Objects;
 
 public abstract class Sprite implements Comparable<Sprite> {
     private Image image;
+    private double positionX;
+    private int health = 1;
+    private double positionY;
+    private double lastX;
+    private double lastY;
+    private double velocityX;
+    private double velocityY;
+    private double width;
+    private double height;
+    private int BITMASK;
+    private boolean alive = true;
 
     public Image getImage() {
         return image;
     }
-
-    private double positionX;
 
     public void setPositionX(double positionX) {
         this.positionX = positionX;
@@ -24,7 +35,7 @@ public abstract class Sprite implements Comparable<Sprite> {
     public double getPositionX() {
         return positionX;
     }
-    private int health = 1;
+
 
     public int getHealth() {
         return health;
@@ -34,8 +45,6 @@ public abstract class Sprite implements Comparable<Sprite> {
         this.health = health;
     }
 
-    private double positionY;
-
     public void setPositionY(double positionY) {
         this.positionY = positionY;
     }
@@ -43,8 +52,6 @@ public abstract class Sprite implements Comparable<Sprite> {
     public double getPositionY() {
         return positionY;
     }
-
-    private double lastX;
 
     public void setLastX(double lastX) {
         this.lastX = lastX;
@@ -54,8 +61,6 @@ public abstract class Sprite implements Comparable<Sprite> {
         return lastX;
     }
 
-    private double lastY;
-
     public void setLastY(double lastY) {
         this.lastY = lastY;
     }
@@ -63,8 +68,6 @@ public abstract class Sprite implements Comparable<Sprite> {
     public double getLastY() {
         return lastY;
     }
-
-    private double velocityX;
 
     public void setVelocityX(double velocityX) {
         this.velocityX = velocityX;
@@ -74,8 +77,6 @@ public abstract class Sprite implements Comparable<Sprite> {
         return velocityX;
     }
 
-    private double velocityY;
-
     public void setVelocityY(double velocityY) {
         this.velocityY = velocityY;
     }
@@ -84,7 +85,6 @@ public abstract class Sprite implements Comparable<Sprite> {
         return velocityY;
     }
 
-    private double width;
     public double getWidth() {
         return width;
     }
@@ -96,14 +96,11 @@ public abstract class Sprite implements Comparable<Sprite> {
         this.width = width;
     }
 
-    private double height;
-
     public void setHeight(double height) {
         this.height = height;
     }
 
-    private int BITMASK;
-    private boolean alive = true;
+
 
     public Sprite() {
         positionX = 0;
@@ -121,7 +118,7 @@ public abstract class Sprite implements Comparable<Sprite> {
     }
 
     public void setImage(String filename) {
-        Image i = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(filename)));
+        Image i = new Image(getClass().getClassLoader().getResourceAsStream(filename));
         setImage(i);
     }
 
@@ -136,7 +133,12 @@ public abstract class Sprite implements Comparable<Sprite> {
     }
 
 
-
+    public void handleCollision(Sprite s) {
+        dealWithCollision(s);
+        if (health <= 0) {
+            setAlive(false);
+        }
+    }
     public void update(double time) {
         lastX = positionX;
         lastY = positionY;
@@ -161,7 +163,22 @@ public abstract class Sprite implements Comparable<Sprite> {
         return s.getRect().intersects(this.getRect());
     }
 
-
+    @Override
+    public int compareTo(Sprite o) {
+        if (o instanceof Water) {
+            return 1;
+        }
+        if (o instanceof Grass) {
+            return -1;
+        }
+        if (this instanceof Water) {
+            return -1;
+        }
+        if (this instanceof Grass) {
+            return 1;
+        }
+        return 0;
+    }
 
 
 

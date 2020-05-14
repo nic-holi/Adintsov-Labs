@@ -1,11 +1,14 @@
 package game.scene;
 
-import game.ui.Game;
+import game.main.Game;
 import game.ui.TanksUI;
 import javafx.scene.Scene;
 
 public abstract class GameScene {
     private TanksUI uiManager;
+    private int SIZE;
+
+    private Game tanks;
 
     public void setUiManager(TanksUI uiManager) {
         this.uiManager = uiManager;
@@ -15,8 +18,6 @@ public abstract class GameScene {
         return uiManager;
     }
 
-    private int SIZE;
-
     public void setSIZE(int SIZE) {
         this.SIZE = SIZE;
     }
@@ -24,8 +25,6 @@ public abstract class GameScene {
     public int getSIZE() {
         return SIZE;
     }
-
-    private Game tanks;
 
     public void setTanks(Game tanks) {
         this.tanks = tanks;
